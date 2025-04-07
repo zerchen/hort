@@ -215,7 +215,6 @@ with gr.Blocks(theme=theme, title="HORT: Monocular Hand-held Objects Reconstruct
     with gr.Row():
         with gr.Column():
             input_image = gr.Image(label="Input image", type="numpy")
-            threshold = gr.Slider(value=0.3, minimum=0.05, maximum=0.95, step=0.05, label='Detection Confidence Threshold')
             submit = gr.Button("Submit", variant="primary")
             example_images = gr.Examples([
                 ['./demo_img/test1.png'], 
@@ -231,9 +230,9 @@ with gr.Blocks(theme=theme, title="HORT: Monocular Hand-held Objects Reconstruct
         
         with gr.Column():
             reconstruction = gr.Image(label="Reconstructions", type="numpy")
-            output_meshes = gr.Model3D(height=300, zoom_speed=0.5, pan_speed=0.5)
+            output_meshes = gr.Model3D(label="3D Models", height=240, zoom_speed=0.5, pan_speed=0.5)
             hands_detected = gr.Textbox(label="Hands Detected")
     
-        submit.click(fn=render_reconstruction, inputs=[input_image, threshold], outputs=[reconstruction, hands_detected, output_meshes])
+        submit.click(fn=render_reconstruction, inputs=[input_image], outputs=[reconstruction, hands_detected, output_meshes])
 
 demo.launch()
